@@ -4,6 +4,7 @@
     {
         static void Main(string[] args)
         {
+            /*
             // 기본 int 우선순위(오름차순) 적용
             DataStructure.PriorityQueue<string, int> pq1 = new DataStructure.PriorityQueue<string, int>();
 
@@ -25,8 +26,16 @@
             pq2.Enqueue("데이터5", 4);
             
             while (pq2.Count > 0) Console.WriteLine(pq2.Dequeue()); // 우선순위가 높은 순서대로 데이터 출력
+            */
 
+            EmergencyRoom<string, int> emergencyRoom = new EmergencyRoom<string, int>();
+            emergencyRoom.EnqueuePatient("1번 환자", 10);
+            emergencyRoom.EnqueuePatient("2번 환자", 30);
+            emergencyRoom.EnqueuePatient("3번 환자", 50);
+            emergencyRoom.EnqueuePatient("4번 환자", 5);
+            emergencyRoom.EnqueuePatient("5번 환자", 20);
 
+            while(emergencyRoom.Count > 0) { Console.WriteLine(emergencyRoom.DequeuePatient()); }
         }
     }
 }
