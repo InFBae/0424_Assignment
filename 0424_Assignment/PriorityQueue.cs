@@ -62,7 +62,6 @@ namespace DataStructure
             Node rootNode = nodes[0];
             Node lastNode = nodes[nodes.Count - 1];
             nodes[0] = lastNode;
-            nodes[Count - 1] = rootNode;
             nodes.RemoveAt(Count - 1);
             int index = 0;
 

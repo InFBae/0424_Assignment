@@ -25,6 +25,8 @@
             pq2.Enqueue("데이터5", 4);
             
             while (pq2.Count > 0) Console.WriteLine(pq2.Dequeue()); // 우선순위가 높은 순서대로 데이터 출력
+
+
         }
     }
 }
