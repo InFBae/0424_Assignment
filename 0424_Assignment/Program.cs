@@ -1,4 +1,6 @@
-﻿namespace _0424_Assignment
+﻿using System.ComponentModel.Design;
+
+namespace _0424_Assignment
 {
     internal class Program
     {
@@ -26,7 +28,7 @@
             pq2.Enqueue("데이터5", 4);
             
             while (pq2.Count > 0) Console.WriteLine(pq2.Dequeue()); // 우선순위가 높은 순서대로 데이터 출력
-            */
+            
 
             EmergencyRoom<string, int> emergencyRoom = new EmergencyRoom<string, int>();
             emergencyRoom.EnqueuePatient("1번 환자", 10);
@@ -36,6 +38,64 @@
             emergencyRoom.EnqueuePatient("5번 환자", 20);
 
             while(emergencyRoom.Count > 0) { Console.WriteLine(emergencyRoom.DequeuePatient()); }
+            */
+            Console.WriteLine(FindMedian()); 
+        }
+
+        static double FindMedian()
+        {
+            int arrSize = 10;
+            int median = 0;
+            double result = 0;
+            int[] array = new int[arrSize];
+            Random random = new Random();
+            for(int i = 0; i < arrSize; i++)
+            {
+                array[i] = random.Next(0, 100);               
+            }
+            // 배열 확인 코드
+            Array.Sort(array);
+            for(int i = 0; i < array.Length; i++)
+            {
+                Console.Write(array[i] + " ");
+            }
+            Console.WriteLine();
+
+            PriorityQueue<int, int> maxQueue = new PriorityQueue<int, int>(Comparer<int>.Create((a, b) => b - a));
+            PriorityQueue<int, int> minQueue = new PriorityQueue<int, int>();
+
+            median = array[0];
+            for(int i = 0; i < arrSize; i++)
+            {
+                if (array[i] >= median)
+                {
+                    minQueue.Enqueue(array[i], array[i]);
+                }
+                else
+                {
+                    maxQueue.Enqueue(array[i], array[i]);
+                }
+                if(minQueue.Count - maxQueue.Count >= 2)
+                {
+                    median = minQueue.Dequeue();
+                    maxQueue.Enqueue(median, median);
+                }
+                else if (minQueue.Count - maxQueue.Count <= -2)
+                {
+                    median = maxQueue.Dequeue();
+                    minQueue.Enqueue(median, median);
+                }
+            }
+            // 개수가 짝수일 경우 두 수의 평균을 취한다
+            if(minQueue.Count == maxQueue.Count)
+            {
+                result = (minQueue.Dequeue() + maxQueue.Dequeue()) / 2;
+            }
+            else
+            {
+                result = median;
+            }
+            return result;
         }
     }
 }
